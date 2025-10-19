@@ -1,10 +1,12 @@
-import React, { useState, useCallback } from 'react';
-// 导入 opencc-js 库，用于繁简转换
-import { OpenCC } from 'opencc-js'; 
+// pages/index.js
 
-// 初始化 OpenCC 转换器
-// 't2s' (Traditional to Simplified) 配置，将繁体字转换为简体字
-const converter = OpenCC('t2s');
+// 注意：这里使用 defaultConverter 作为默认导入的名称
+import React, { useState, useCallback } from 'react';
+import defaultConverter from 'opencc-js'; // <-- 正确的默认导入方式
+
+// 初始化 OpenCC 转换器：
+// 默认导入的对象（defaultConverter）本身就是用于配置和创建转换函数的函数
+const converter = defaultConverter('t2s'); 
 
 export default function HeroQueryPage() {
   const [query, setQuery] = useState('');
@@ -138,4 +140,5 @@ export default function HeroQueryPage() {
       </div>
     </div>
   );
+
 }
