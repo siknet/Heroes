@@ -1,12 +1,21 @@
 // pages/index.js
 
-// 注意：这里使用 defaultConverter 作为默认导入的名称
 import React, { useState, useCallback } from 'react';
-import defaultConverter from 'opencc-js'; // <-- 正确的默认导入方式
+// 导入 opencc-js 库，使用 CommonJS 兼容导入
+// 在 Next.js 环境中，有时需要访问模块的 .default 属性
+import OpenCC from 'opencc-js';
 
-// 初始化 OpenCC 转换器：
-// 默认导入的对象（defaultConverter）本身就是用于配置和创建转换函数的函数
-const converter = defaultConverter('t2s'); 
+// 假设正确的转换函数是导入对象本身 (OpenCC) 或其 .OpenCC 属性
+// 我们尝试最简单且兼容性较高的方式：
+// 
+// 确保 OpenCC 是一个函数。
+// 如果 OpenCC 是 { default: function, OpenCC: function } 这样的对象，需要特别处理。
+
+// 稳妥的方法：获取 OpenCC 转换函数
+const OpenCCConverter = OpenCC.OpenCC || OpenCC.default || OpenCC;
+
+// 初始化 OpenCC 转换器
+const converter = OpenCCConverter('t2s');
 
 export default function HeroQueryPage() {
   const [query, setQuery] = useState('');
@@ -142,3 +151,4 @@ export default function HeroQueryPage() {
   );
 
 }
+
