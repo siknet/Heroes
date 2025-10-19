@@ -1,3 +1,0 @@
-gradio
-opencc-python-reimplemented
-pandas
